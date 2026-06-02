@@ -82,10 +82,12 @@ export function ParetoChart({ rows, groupBy = 'Cause' }: Props) {
           />
           <Tooltip
             contentStyle={{ fontSize: 12 }}
-            formatter={(v: number, name: string) =>
-              name === 'cumPct' ? [`${v.toFixed(1)}%`, 'Cumulative %'] : [fmtVal(v), 'Value']
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            formatter={(v: any, name: any) =>
+              name === 'cumPct' ? [`${Number(v).toFixed(1)}%`, 'Cumulative %'] : [fmtVal(Number(v)), 'Value']
             }
-            labelFormatter={(_: unknown, payload) =>
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            labelFormatter={(_: any, payload: any) =>
               payload?.[0]?.payload?.fullName ?? ''
             }
           />
