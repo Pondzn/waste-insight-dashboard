@@ -39,12 +39,12 @@ const BarLabel = ({ x = 0, y = 0, width = 0, value = 0 }: { x?: number; y?: numb
 interface Props {
   monthlyRows:    WasteRow[]
   detailRows:     WasteRow[]
-  selectedMonth:  number | null   // dropdown single-month filter
+  _selectedMonth?: number | null   // dropdown already filters data upstream
   chartMonths:    number[]        // chart-click dim
   onClickMonth:   (v: number, shift: boolean) => void
 }
 
-export function MonthlyChart({ monthlyRows, detailRows, selectedMonth, chartMonths, onClickMonth }: Props) {
+export function MonthlyChart({ monthlyRows, detailRows, chartMonths, onClickMonth }: Props) {
   // Aggregate by CalendarYear+MonthNo
   const map = new Map<string, { label: string; monthNo: number; actual: number; target: number; prevAvg: number; achPct: number; count: number }>()
 
