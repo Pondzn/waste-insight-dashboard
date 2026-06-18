@@ -140,7 +140,6 @@ export function useFilters(allRows: WasteRow[]): UseFiltersResult {
 
   // For Pareto: full filter EXCEPT chartProblems — chart handles dim for problems
   const filterForProblems = useMemo(() => (rows: WasteRow[]) => rows.filter(r => {
-    if (dateRangeActive) return applyDateRange(r)
     if (years.length && !years.includes(r.CalendarYear)) return false
     if (month !== null && r.MonthNo && r.MonthNo !== month) return false
     if (depts.length && r.Dept && !depts.includes(r.Dept)) return false
@@ -148,13 +147,12 @@ export function useFilters(allRows: WasteRow[]): UseFiltersResult {
     if (cDepts.length && r.Dept && !cDepts.includes(r.Dept)) return false
     if (cMachines.length && r.Machine && !cMachines.includes(r.Machine)) return false
     if (cJobs.length && r.JO && !cJobs.includes(r.JO)) return false
+    // NOT filtering by cProblems
     return true
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }), [years, month, depts, cMonths, cDepts, cMachines, cJobs, dateRangeActive, dateFrom, dateTo])
+  }), [years, month, depts, cMonths, cDepts, cMachines, cJobs])
 
   // For Top10Jobs: full filter EXCEPT chartJobs — chart handles dim for jobs
   const filterForJobs = useMemo(() => (rows: WasteRow[]) => rows.filter(r => {
-    if (dateRangeActive) return applyDateRange(r)
     if (years.length && !years.includes(r.CalendarYear)) return false
     if (month !== null && r.MonthNo && r.MonthNo !== month) return false
     if (depts.length && r.Dept && !depts.includes(r.Dept)) return false
@@ -164,8 +162,7 @@ export function useFilters(allRows: WasteRow[]): UseFiltersResult {
     if (cMachines.length && r.Machine && !cMachines.includes(r.Machine)) return false
     // NOT filtering by cJobs — chart handles dim
     return true
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }), [years, month, depts, cMonths, cDepts, cProblems, cMachines, dateRangeActive, dateFrom, dateTo])
+  }), [years, month, depts, cMonths, cDepts, cProblems, cMachines])
 
   const hasChartSel = !!(cMonths.length || cDepts.length || cProblems.length || cMachines.length || cJobs.length)
 

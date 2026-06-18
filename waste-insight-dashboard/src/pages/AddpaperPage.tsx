@@ -132,10 +132,10 @@ export function AddpaperPage({ actioned, salesMap }: { actioned: UseActionedJobs
         {anyLoading ? [0,1,2,3].map(i=><Sk key={i} h="h-28"/>) : (<>
           {kpi.totalSales > 0 && (
             <KpiCard label="Sales Volume (THB)" value={fmtK(kpi.totalSales)}
-              sub1={kpi.wasteRate !== null ? `Add Paper Cost Rate: ${kpi.wasteRate.toFixed(2)}%` : undefined}
+              sub1={kpi.wasteRate !== null ? `Waste Rate: ${kpi.wasteRate.toFixed(2)}%` : undefined}
               accent="purple"/>
           )}
-          <KpiCard label="Add Paper Cost (THB)" value={fmtK(kpi.totalValue)}
+          <KpiCard label="Total Waste (THB)" value={fmtK(kpi.totalValue)}
             sub1={kpi.totalTarget > 0 && kpi.achPct !== null
               ? `Target: ${fmtK(kpi.totalTarget)} · ${(-kpi.achPct) >= 0 ? '+' : ''}${(-kpi.achPct).toFixed(1)}% vs target`
               : undefined}
@@ -145,7 +145,7 @@ export function AddpaperPage({ actioned, salesMap }: { actioned: UseActionedJobs
             progress={kpi.totalTarget > 0 ? kpi.totalValue / kpi.totalTarget : null}
             progressBad={true}/>
           {kpi.totalSales === 0 && kpi.wasteRate !== null && (
-            <KpiCard label="Add Paper Cost Rate" value={`${kpi.wasteRate.toFixed(2)}%`} sub1="waste / sales revenue" accent="amber"/>
+            <KpiCard label="Waste Rate" value={`${kpi.wasteRate.toFixed(2)}%`} sub1="waste / sales revenue" accent="amber"/>
           )}
           <KpiCard label="Total Jobs" value={kpi.coreJobs.toLocaleString()}
             sub1={`รวม ${kpi.totalJobs.toLocaleString()} รายการ (incl. OUTWORK ฯลฯ)`}
@@ -179,7 +179,7 @@ export function AddpaperPage({ actioned, salesMap }: { actioned: UseActionedJobs
 
       <SectionLabel>Detail</SectionLabel>
       <div style={{ minHeight: 200 }}>
-        {detail.loading ? <Sk h="h-[300px]"/> : <DetailTable rows={filteredDetail} dataset="Addpaper"/>}
+        {detail.loading ? <Sk h="h-[300px]"/> : <DetailTable rows={filteredDetail} dataset="Addpaper" actionedJos={actioned.actionedJos}/>}
       </div>
 
       <div style={{ minHeight: 100 }}>

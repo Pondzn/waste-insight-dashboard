@@ -161,11 +161,11 @@ export function ReplanPage({ actioned, salesMap }: { actioned: UseActionedJobsRe
           {/* 1. Sales — context */}
           {kpi.totalSales > 0 && (
             <KpiCard label="Sales Volume (THB)" value={fmtK(kpi.totalSales)}
-              sub1={kpi.wasteRate !== null ? `Replan Cost Rate: ${kpi.wasteRate.toFixed(2)}%` : undefined}
+              sub1={kpi.wasteRate !== null ? `Waste Rate: ${kpi.wasteRate.toFixed(2)}%` : undefined}
               accent="purple"/>
           )}
           {/* 2. Total Waste vs Target */}
-          <KpiCard label="Replan Cost (THB)" value={fmtK(kpi.totalValue)}
+          <KpiCard label="Total Waste (THB)" value={fmtK(kpi.totalValue)}
             sub1={kpi.totalTarget > 0 && kpi.achPct !== null
               ? `Target: ${fmtK(kpi.totalTarget)} · ${(-kpi.achPct) >= 0 ? '+' : ''}${(-kpi.achPct).toFixed(1)}% vs target`
               : undefined}
@@ -176,7 +176,7 @@ export function ReplanPage({ actioned, salesMap }: { actioned: UseActionedJobsRe
             progressBad={true}/>
           {/* 3. Waste Rate — key insight (only without sales card to avoid dupe) */}
           {kpi.totalSales === 0 && kpi.wasteRate !== null && (
-            <KpiCard label="Replan Cost Rate" value={`${kpi.wasteRate.toFixed(2)}%`}
+            <KpiCard label="Waste Rate" value={`${kpi.wasteRate.toFixed(2)}%`}
               sub1="waste / sales revenue" accent="amber"/>
           )}
           {/* 4. Jobs to action */}
@@ -218,7 +218,7 @@ export function ReplanPage({ actioned, salesMap }: { actioned: UseActionedJobsRe
       {/* ── DETAIL ───────────────────────────────────────────── */}
       <SectionLabel>Detail</SectionLabel>
       <div style={{ minHeight: 200 }}>
-        {detail.loading ? <Sk h="h-[300px]"/> : <DetailTable rows={filteredDetail} dataset="Replan"/>}
+        {detail.loading ? <Sk h="h-[300px]"/> : <DetailTable rows={filteredDetail} dataset="Replan" actionedJos={actioned.actionedJos}/>}
       </div>
 
       {/* Weekly Action List — ล่างสุด */}
