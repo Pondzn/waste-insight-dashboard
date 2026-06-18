@@ -59,7 +59,9 @@ export function AddpaperPage({ actioned, salesMap }: { actioned: UseActionedJobs
   const kpi = useMemo(() => {
     const hasDeptFilter = f.dd.depts.length > 0 || f.chartSel.depts.length > 0
     const kpiRows = hasDeptFilter ? f.filterRows(dept.rows) : f.filterRows(monthly.rows)
-    const totalValue  = kpiRows.reduce((s,r) => s + (r.Actual ?? 0), 0)
+    const totalValue  = f.dateRangeActive
+      ? filteredDetail.reduce((s,r) => s + (r.Value ?? 0), 0)
+      : kpiRows.reduce((s,r) => s + (r.Actual ?? 0), 0)
     const totalTarget = kpiRows.reduce((s,r) => s + (r.Target ?? 0), 0)
     const achPct      = totalTarget > 0 ? (totalValue / totalTarget - 1) * 100 : null
     const totalJobs   = filteredDetail.length
