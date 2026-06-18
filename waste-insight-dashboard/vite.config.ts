@@ -5,5 +5,5 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   // GitHub Pages serves at /waste-insight-dashboard/ — change if repo name changes
-  base: '/Waste-Insight/',
+  base: '/waste-insight-dashboard/',
 })
